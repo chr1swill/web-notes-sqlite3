@@ -19,6 +19,14 @@ const server = http.createServer(
             return;
         };
 
+        if (req.url === '/app.js') {
+            const app_js = fs.readFileSync('./app.js');
+            res.setHeader('Content-Type', 'application/javascript');
+            res.statusCode = 200;
+            res.end(app_js);
+            return;
+        };
+
         if (req.url === '/fruits.js') {
             const fruits_js = fs.readFileSync('./fruits.js');
             res.setHeader('Content-Type', 'application/javascript');

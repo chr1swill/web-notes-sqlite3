@@ -1,7 +1,3 @@
-import { sqlite3InitModule } from "./sqlite3.js";
-const sqlite3 = await sqlite3InitModule();
-const { capi, wasm } = sqlite3.sqlite3
-
 //let db_p = wasm.allocPtr();
 //let return_code = capi.sqlite3_open("myDb", db_p);
 //if (return_code !== 0) {
@@ -70,8 +66,5 @@ const { capi, wasm } = sqlite3.sqlite3
 //capi.sqlite3_free(db);
 //wasm.dealloc(db_p);
 
-const p_db = wasm.allocPtr();
-let rc = capi.sqlite3_open("myDB", p_db);
-if (rc !== 0) {
-    throw new Error("Failed to open DB");
-};
+const worker = new Worker("/worker.js", { type: "module" });
+worker.postMessage(1)
